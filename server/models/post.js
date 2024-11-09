@@ -27,7 +27,7 @@ const LikeSchema = new mongoose.Schema({
     }
 });
 
-const NoticeSchema = new mongoose.Schema({
+const PostSchema = new mongoose.Schema({
     description: {
         type: String,
     },
@@ -61,6 +61,6 @@ const NoticeSchema = new mongoose.Schema({
     likes: [LikeSchema]
 })
 
-const Notice = mongoose.model("Notice", NoticeSchema);
+const Post = mongoose.model("Post", PostSchema);
 
-export default Notice;
+export default Post;

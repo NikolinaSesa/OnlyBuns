@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 import User from "../models/user.js";
+import Post from "../models/post.js";
 
 const router = express.Router();
 dotenv.config();
@@ -111,6 +112,23 @@ router.post("/login", async (req, res) => {
     } catch (error) {
         console.error(error);
         return res.status(400).send("Something went wrong.");
+    }
+})
+
+router.get("/getUser/:id", async(req, res) => {
+    const userId = req.params.id;
+
+    try{
+        const user = await User.findById(userId);
+        if(!user){
+            return res.status(404).send("User's profile doesn't exist.");
+        }
+
+        const usersPosts = await Post.find({created_by: user.username});
+        res.status(200).send({user, posts: usersPosts});
+    }catch(error){
+        console.error(error);
+        res.status(400).send("Something went worng.");
     }
 })
 

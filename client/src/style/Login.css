@@ -1,0 +1,88 @@
+.login-page {
+    display: flex;
+    height: 100vh;
+}
+
+.login-page__image {
+    align-content: center;
+    width: 50%;
+}
+
+.login-page__image img {
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
+}
+
+.login-page__form {
+    align-content: center;
+    justify-content: center;
+    width: 50%;
+    padding: 20px;
+}
+
+.login-page__form h2 {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-group label {
+    display: block;
+    width: 324px;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 300px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    cursor: pointer;
+    width: 324px;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+
+.extra-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.line-break {
+    width: 100%;
+    max-width: 300px;
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 10px;
+}
+
+.extra-section p {
+    font-size: 14px;
+    color: #555;
+}
+
+.signup-link {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.signup-link:hover {
+    text-decoration: underline;
+}
