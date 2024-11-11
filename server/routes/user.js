@@ -36,6 +36,7 @@ router.post('/register', async (req, res) => {
             username: req.body.username,
             email: req.body.email,
             password: req.body.password,
+            phone_number: req.body.phone_number,
             active: false,
             address: {
                 address: req.body.address,
@@ -64,7 +65,7 @@ router.post('/register', async (req, res) => {
         };
 
         await transporter.sendMail(mailOptions);
-        return res.status(200).send("User registered successfully. Please check you email to verify account.");
+        res.status(200).send("User registered successfully. Please check you email to verify account.");
 
     } catch (error) {
         console.error(error);
@@ -107,7 +108,7 @@ router.post("/login", async (req, res) => {
         }
 
         const token = user.generateAuthToken();
-        return res.status(200).send(token);
+        return res.status(200).send({token: token, username: user.username});
 
     } catch (error) {
         console.error(error);
@@ -115,11 +116,11 @@ router.post("/login", async (req, res) => {
     }
 })
 
-router.get("/getUser/:id", async(req, res) => {
-    const userId = req.params.id;
+router.get("/getUser/:username", async(req, res) => {
+    const username = req.params.username;
 
     try{
-        const user = await User.findById(userId);
+        const user = await User.findOne({username: username})
         if(!user){
             return res.status(404).send("User's profile doesn't exist.");
         }
@@ -128,7 +129,7 @@ router.get("/getUser/:id", async(req, res) => {
         res.status(200).send({user, posts: usersPosts});
     }catch(error){
         console.error(error);
-        res.status(400).send("Something went worng.");
+        res.status(400).send("Something went wrong.");
     }
 })
 

@@ -32,6 +32,10 @@ const UserSchema = new mongoose.Schema({
         required: true
     },
 
+    phone_number:{
+        type: String
+    },
+
     active: {
         type: Boolean
     },
