@@ -170,7 +170,6 @@ function AllPosts({ accessToken }) {
         setImageName("No file chosen");
         setCoordinates({ lat: null, lng: null });
         setAddress("");
-        set
     };
 
     const handleImageChange = (e) => {
@@ -219,8 +218,18 @@ function AllPosts({ accessToken }) {
     const handleCreatePost = (e) => {
         e.preventDefault();
 
-        if (!description.trim() || !image) {
-            toast.warning("Action blocked: You cannot create post without image/description/location.");
+        if (!description.trim()) {
+            toast.warning("Action blocked: You cannot create post without description.");
+            return;
+        }
+
+        if (!image) {
+            toast.warning("Action blocked: You cannot create post without image.");
+            return;
+        }
+
+        if (!coordinates.lat || !coordinates.lng) {
+            toast.warning("Action blocked: You cannot create post without location.");
             return;
         }
 
@@ -289,13 +298,6 @@ function AllPosts({ accessToken }) {
                     </Paper>
                 </Grid>
             ))}
-            {accessToken && (
-                <Grid item xs={2} sx={{ margin: 2 }}>
-                    <Paper onClick={handleCreatePostOpenDialog} elevation={6} className="paper" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', cursor: 'pointer' }}>
-                        <AddCircleOutline sx={{ fontSize: 50, color: '#007bff' }} />
-                    </Paper>
-                </Grid>
-            )}
             <Dialog open={openDialog} onClose={handleCloseDialog} fullWidth maxWidth="sm">
                 <DialogTitle>Comments</DialogTitle>
                 <DialogContent>
@@ -389,6 +391,27 @@ function AllPosts({ accessToken }) {
                     <Button onClick={() => setOpenMapDialog(false)} color="primary">Close</Button>
                 </DialogActions>
             </Dialog>
+            {accessToken && (
+                <Box position="fixed" bottom={16} right={16} zIndex="tooltip">
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        sx={{
+                            width: 50, 
+                            height: 50, 
+                            borderRadius: "50%",  
+                            padding: 0,  
+                            fontSize: "1.5rem",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center"
+                        }}
+                        onClick={handleCreatePostOpenDialog}
+                    >
+                        <AddCircleOutline fontSize="inherit" />
+                    </Button>
+                </Box>
+            )}
             <ToastContainer />
         </Grid>
     )
